@@ -1,0 +1,21 @@
+Files already downloaded and verified
+11-Feb-2020 (16:44:49): (0) Trainig Loss: 0.13510768136024476 | Training Accuracy: 17.222
+11-Feb-2020 (16:44:56): (0) Validation Loss: 2.0316273015141486 | Validation Accuracy: 22.89
+11-Feb-2020 (16:45:17): (1) Trainig Loss: 0.12438036566257477 | Training Accuracy: 24.484
+11-Feb-2020 (16:45:23): (1) Validation Loss: 1.9200154029369354 | Validation Accuracy: 27.01
+11-Feb-2020 (16:45:46): (2) Trainig Loss: 0.1184170255947113 | Training Accuracy: 29.74
+11-Feb-2020 (16:45:52): (2) Validation Loss: 1.8415030521154403 | Validation Accuracy: 32.43
+11-Feb-2020 (16:46:13): (3) Trainig Loss: 0.11395822888851166 | Training Accuracy: 33.33
+11-Feb-2020 (16:46:21): (3) Validation Loss: 1.8054755277991295 | Validation Accuracy: 33.339999999999996
+11-Feb-2020 (16:46:43): (4) Trainig Loss: 0.11114802059173584 | Training Accuracy: 35.272
+11-Feb-2020 (16:46:50): (4) Validation Loss: 1.7324657901883125 | Validation Accuracy: 36.5
+11-Feb-2020 (16:47:13): (5) Trainig Loss: 0.10674973973751069 | Training Accuracy: 37.728
+11-Feb-2020 (16:47:18): (5) Validation Loss: 1.7081467840909959 | Validation Accuracy: 38.519999999999996
+11-Feb-2020 (16:47:40): (6) Trainig Loss: 0.10467183829665185 | Training Accuracy: 39.442
+11-Feb-2020 (16:47:48): (6) Validation Loss: 1.6786904750585556 | Validation Accuracy: 38.97
+11-Feb-2020 (16:48:10): (7) Trainig Loss: 0.10356128544688224 | Training Accuracy: 40.156
+11-Feb-2020 (16:48:15): (7) Validation Loss: 1.6149797768354417 | Validation Accuracy: 41.82
+11-Feb-2020 (16:48:37): (8) Trainig Loss: 0.10018103380918503 | Training Accuracy: 41.959999999999994
+11-Feb-2020 (16:48:44): (8) Validation Loss: 1.618591433775425 | Validation Accuracy: 43.09
+11-Feb-2020 (16:49:05): (9) Trainig Loss: 0.10055847138524056 | Training Accuracy: 42.032000000000004
+11-Feb-2020 (16:49:12): (9) Validation Loss: 1.618643092238903 | Validation Accuracy: 42.96

@@ -88,7 +88,7 @@ except IndexError:
 
 def main():
     train_data = torchvision.datasets.CIFAR10(root='./datasets/cifar10/', train=True, transform=torchvision.transforms.ToTensor(), download=True)
-    train_loader = Data.DataLoader(dataset=train_data)
+    train_loader = Data.DataLoader(dataset=train_data, batch_size=16, shuffle=True, num_workers=8)
 
     test_data = torchvision.datasets.CIFAR10(root='./datasets/cifar10/', train=False, transform=torchvision.transforms.ToTensor())
     test_loader = Data.DataLoader(dataset=test_data)
@@ -96,21 +96,54 @@ def main():
     model = timnet().cuda(0)
     criterion = nn.CrossEntropyLoss()
     # loss_func = torch.nn.MSELoss()
-    optimizer = torch.optim.SGD(model.parameters(), lr=0.00001)
-
+    # optimizer = torch.optim.SGD(model.parameters(), lr=0.00001)
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.00001)
     start_epoch = 0
     total_epochs = 10
     for epoch in range(start_epoch, total_epochs):
+        # Train
+        model.train(True)
         optimizer.zero_grad()
         total_loss = 0
         total_acc = 0
-
         data_length = 0 # len(enumerate(train_loader))
         for step, (input, target) in enumerate(train_loader):
+            # print(input.shape, target.shape)
+            predictions = model.forward(input.view(16, -1).cuda(0))
+            loss = criterion(predictions, target.cuda(0))
+            total_loss += loss.item()
+            
+            values, indices = torch.max(predictions, 1)
+            
+            # print(indices,":",values, " : ", target)
+
+            for i in range(0,16):
+                # print(indices[i],target[i])
+                if indices[i] == target[i]:
+                    # print("Success!!!")
+                    total_acc += 1;
+
+            loss.backward()
+            optimizer.step()
+            data_length += 16
+        
+        dateTimeObj = datetime.now()
+        timestamp = dateTimeObj.strftime("%d-%b-%Y (%H:%M:%S)")
+
+        print(str(timestamp) + ": (" + str(epoch) + ") Trainig Loss: " + str(total_loss/data_length) + " | Training Accuracy: " + str(100*(total_acc/data_length)))
+
+        # Validate
+        model.train(False)
+        model.eval()
+        optimizer.zero_grad()
+        total_loss = 0
+        total_acc = 0
+        data_length = 0 # len(enumerate(train_loader))
+        for step, (input, target) in enumerate(test_loader):
             predictions = model(input.view(-1).cuda(0))
             loss = criterion(predictions.unsqueeze(0), target.cuda(0))
             total_loss += loss.item()
-            
+
             values, indices = torch.max(predictions, 0)
 
             # print(indices.item(),":",values.item(), " : ", target.item())
@@ -119,14 +152,14 @@ def main():
                 # print("Success!!!")
                 total_acc += 1;
 
-            loss.backward()
-            optimizer.step()
+            # loss.backward()
+            # optimizer.step()
             data_length += 1
-        
+
         dateTimeObj = datetime.now()
         timestamp = dateTimeObj.strftime("%d-%b-%Y (%H:%M:%S)")
 
-        print(str(timestamp) + ": (" + str(epoch) + ") Trainig Loss: " + str(total_loss/data_length) + " | Training Accuracy: " + str(100*(total_acc/data_length)))
+        print(str(timestamp) + ": (" + str(epoch) + ") Validation Loss: " + str(total_loss/data_length) + " | Validation Accuracy: " + str(100*(total_acc/data_length)))
 
         saveModel(model, "./classify_cifar10_" + str(epoch) + ".pth")
 
